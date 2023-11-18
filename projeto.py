@@ -38,11 +38,11 @@ local_config = {
 
 #objetos utilizados para rota de navegação
 root = index() #rota principal
-root.rotaAbout = PaginaAbout()
-root.rotaCursos = PaginaCursos()
-root.rotaEtec = PaginaEtec()
-root.rotaLinux = PaginaLinux()
-root.rotaMaratona = PaginaMaratona()
-root.rotaLivia = PaginaLivia()
+root.sobre = PaginaAbout()
+root.ciclodecursos = PaginaCursos()
+root.fippetec = PaginaEtec()
+root.festalinux = PaginaLinux()
+root.maratonadeprogramacao = PaginaMaratona()
+#root.rotaLivia = PaginaLivia()
 
 cherrypy.quickstart(root,config=local_config)
