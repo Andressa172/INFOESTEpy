@@ -4,7 +4,7 @@ from pages import *
 
 local_dir = os.path.dirname(__file__)
 
-class Principal():
+class index():
     header = open("html/header.html", encoding="utf-8").read()
     principal = open("html/index.html", encoding="utf-8").read()
 
@@ -25,14 +25,6 @@ local_config = {
         "tools.staticdir.on": True,
         "tools.staticdir.dir": local_dir,
     },
-    "/css": {
-        "tools.staticdir.on": True,
-        "tools.staticdir.dir": os.path.join(local_dir, "css"),
-    },
-    "/imgs": {
-        "tools.staticdir.on": True,
-        "tools.staticdir.dir": os.path.join(local_dir, "imgs"),
-    },
     "/#": {
         "request.dispatch": cherrypy.dispatch.MethodDispatcher(),
     },
@@ -45,7 +37,7 @@ local_config = {
 
 
 #objetos utilizados para rota de navegação
-root = Principal() #rota principal
+root = index() #rota principal
 root.rotaAbout = PaginaAbout()
 root.rotaCursos = PaginaCursos()
 root.rotaEtec = PaginaEtec()
