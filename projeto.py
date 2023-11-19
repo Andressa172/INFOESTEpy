@@ -4,14 +4,8 @@ from pages import *
 
 local_dir = os.path.dirname(__file__)
 
-class index():
-    header = open("html/header.html", encoding="utf-8").read()
-    principal = open("html/index.html", encoding="utf-8").read()
-
-    @cherrypy.expose()
-    def index(self):
-        html = self.header + self.principal
-        return html
+#run
+index()
 
 server_config={
 'server.socket_host': '127.0.0.1',

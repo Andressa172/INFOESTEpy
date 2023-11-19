@@ -38,6 +38,7 @@ class Aluno:
         self.__id = 0
         self.__name = ''
         self.__tel = Tel()
+        self.__email = ''
         self.__dn = Data()
         self.__endereco = ''
         self.__curso = int
@@ -62,6 +63,10 @@ class Aluno:
                 if isinstance(mes, int) and mes in range(1,12):
                     if isinstance(ano, int) and ano >= 0:
                         self.__dn.set_dataNascimento(dia, mes, ano)
+
+        def set_email(self, email):
+            if len(email) <= 50 and '@' in email:
+                self.__email = email
 
         def set_tel (self, ddd, numero):
             if len(str(ddd))==2 and len(str(numero))==9:
