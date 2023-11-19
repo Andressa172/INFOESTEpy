@@ -2,13 +2,12 @@ import sqlite3
 
 
 class Banco():
-
     def __init__(self):#construtor
         self.__conexao = None
         self.__cursor = None
 
     def __connect(self):
-        self.__conexao = sqlite3.connect("bd/bd_alunos.db")
+        self.__conexao = sqlite3.connect("bd/alunos.db")
         self.__conexao.row_factory = sqlite3.Row 
         self.__cursor = self.__conexao.cursor()
 
