@@ -21,10 +21,6 @@ local_config = {
     },
     "/#": {
         "request.dispatch": cherrypy.dispatch.MethodDispatcher(),
-    },
-    "/PortfólioLívia": {
-        "tools.staticdir.on": True,
-        "tools.staticdir.dir": os.path.join(os.path.dirname(__file__), "PortfólioLívia"),
     }
 }
 
@@ -37,6 +33,6 @@ root.ciclodecursos = PaginaCursos()
 root.fippetec = PaginaEtec()
 root.festalinux = PaginaLinux()
 root.maratonadeprogramacao = PaginaMaratona()
-#root.rotaLivia = PaginaLivia()
+
 
 cherrypy.quickstart(root,config=local_config)
