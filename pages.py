@@ -2,7 +2,7 @@ import cherrypy
 from classes.aluno import *
 
 class index():
-    header = open("html/header.html", encoding="utf-8").read()
+    header = open("html/headerIndex.html", encoding="utf-8").read()
     principal = open("html/index.html", encoding="utf-8").read()
 
     @cherrypy.expose()
@@ -93,15 +93,6 @@ class PaginaLinux():
 
         return html
     
-class PaginaLivia():
-    header = open("html/header.html", encoding="utf-8").read()
-    body = open("PortfolioLivia/index.html", encoding="utf-8").read()
-
-    @cherrypy.expose()
-    def index(self):
-        html = self.body
-
-        return html
 
 class PaginaMaratona():
 
