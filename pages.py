@@ -6,14 +6,14 @@ class index():
     principal = open("html/index.html", encoding="utf-8").read()
 
     @cherrypy.expose()
-    def index(self):
-        html = self.header + self.principal
+    def index(self, id=0, tnome=''):
+        html = self.header + self.principal 
         return html
     
     @cherrypy.expose()
     def gravarAluno(self,tnome,temail,telefone, date, endereco ,btnGravar):
 
-        if len(txtDescr) > 0: ## eu coloquei verificacoes na classe e 
+        if len(tnome) > 0: ## eu coloquei verificacoes na classe e 
             #percebi que nao sei lidar com os erros se o retorno for invalido, entao é melhor
             #portar as condicoes de lá nesse módulo aqui
             #antes de escrever no objeto!! 
@@ -26,9 +26,9 @@ class index():
             objAluno.set_data(date)
             objAluno.set_endereco(endereco)
 
-                # objAluno curso = int
-                # objAluno isActive = True   -> ainda nao os fiz 
-                # self.__sendInfo = bool
+            # objAluno curso = int
+            # objAluno isActive = True   -> ainda nao os fiz 
+            # self.__sendInfo = bool
 
 
                 ###parei aqui

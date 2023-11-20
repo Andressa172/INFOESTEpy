@@ -1,5 +1,5 @@
 #ID, Nome, Email, Telefone, Data de nascimento, endereco completo, curso, foto, notificacoes, isActive, sendInfo
-from banco import *
+from classes.banco import *
 
 class Data:
     def __init__(self):
@@ -30,8 +30,6 @@ class Tel:
             if len(ddd) == 2 and len(telefone) == 9:
                 self.__ddd = ddd
                 self.__telefone = telefone
-
-
 
 class Aluno:
     def __init__(self):
