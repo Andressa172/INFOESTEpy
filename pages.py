@@ -3,11 +3,18 @@ from classes.aluno import *
 
 class index():
     header = open("html/headerIndex.html", encoding="utf-8").read()
-    principal = open("html/index.html", encoding="utf-8").read()
+    titulo = open("html/titulo.html", encoding="utf-8").read()
+    cards = open("html/cards.html", encoding="utf-8").read()
+    form = open("html/form.html", encoding="utf-8").read()
+    contact = open("html/contact.html", encoding="utf-8").read()
 
     @cherrypy.expose()
     def index(self, id=0, tnome=''):
-        html = self.header + self.principal 
+        html = self.header 
+        html += self.titulo
+        html += self.cards
+        html += self.form
+        html += self.contact
         return html
     
     @cherrypy.expose()
