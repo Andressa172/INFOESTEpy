@@ -32,16 +32,6 @@
                             placeholder="Digite seu telefone"></a>
   
                       </li>
-                      <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
-                        <a class="program-link   font-size__enrollment"><label for="tnome">Data de nascimento:</label>
-                          <input type="date" name="tnome" size="30rem" value="%s" maxlength="55"
-                            required="required" /></a>
-                      </li>
-                      <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
-                        <a class="program-link   font-size__enrollment"><label for="endereco">Endereço completo:</label>
-                          <input type="text" name="endereco" size="30rem" maxlength="55" placeholder="Digite seu endereço"
-                            required="required" /></a>
-                      </li>
   
                       <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                         <a class="program-link   font-size__enrollment"><label for="tnome">Curso:</label>
@@ -54,7 +44,7 @@
                           <option value=“5”> Outros </option>
                         </select>
                       </li><br>
-  
+
   
                       <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                         <a class="program-link   font-size__enrollment"><label for="tarq">Carregue sua
@@ -75,19 +65,11 @@
                       <br />
   
                       <div class="botoes">
-                        <input class="botao" type="button" name="bmensagem" value="OK" onclick="gravarNome()" />
+                        <input class="botao" type="button" name="bmensagem" value="OK" />
                         <input class="botao" type="reset" name="blimpar" value="LIMPAR" />
                       </div>
                     </ul>
                     <br>
-  
-                    <script>
-                      function gravarNome() {
-                        var nome = document.getElementById("tnome").value
-                        var email = document.getElementById("temail").value
-                        alert("Obrigado pela inscrição, " + nome + "!\nEm breve, mais informações no e-mail '" + email + "'")
-                      }
-                    </script>
   
                 </div>
                 </form>

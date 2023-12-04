@@ -1,6 +1,7 @@
 import cherrypy
 import os
 from pages import *
+from pageForm import *
 
 local_dir = os.path.dirname(__file__)
 
@@ -33,6 +34,7 @@ root.ciclodecursos = PaginaCursos()
 root.fippetec = PaginaEtec()
 root.festalinux = PaginaLinux()
 root.maratonadeprogramacao = PaginaMaratona()
+root.rotaAluno = PaginaForm()
 
 
 cherrypy.quickstart(root,config=local_config)

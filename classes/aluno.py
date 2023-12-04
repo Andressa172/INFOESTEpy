@@ -1,91 +1,93 @@
-#ID, Nome, Email, Telefone, Data de nascimento, endereco completo, curso, foto, notificacoes, isActive, sendInfo
-from classes.banco import *
+from classes.banco import Banco
 
-class Data:
+class Aluno(): # está é o nome da classe de Espécies
+    '''
+        Documentação da classe
+        - aqui nó vamos descrever os campos (propriedades) e funções (métodos) para definirmos de acordo com a teoria de Programação Orientada a Objetos
+    '''
+    # Construtor
     def __init__(self):
-        self.__dia = 1
-        self.__mes = 1
-        self.__ano = 2000
-
-    def __str__(self):
-        return str(self.__dia) + " " + str(self.__mes) + " " + str(self.__ano)
-    
-    def set_dataNascimento(self, dia, mes, ano):
-            if isinstance(dia, int) and dia in range(1,31):
-                if isinstance(mes, int) and mes in range(1,12):
-                    if isinstance(ano, int) and ano >= 0:
-                        self.__dia = dia
-                        self.__mes = mes
-                        self.__ano = ano
-
-class Tel:
-    def __init__(self):
-        self.__ddd = ''
-        self.__telefone = ''
-
-        def __str__(self):
-            return self.__ddd + "-" + self.__telefone
-        
-        def set_Telefone(self, ddd, telefone):
-            if len(ddd) == 2 and len(telefone) == 9:
-                self.__ddd = ddd
-                self.__telefone = telefone
-
-class Aluno:
-    def __init__(self):
+        # propriedades privadas
         self.__id = 0
-        self.__name = ''
-        self.__tel = Tel()
+        self.__nome = ''
         self.__email = ''
-        self.__dn = Data()
-        self.__endereco = ''
-        self.__curso = int
-        self.__isActive = True
-        self.__sendInfo = bool
-        self.__bd = Banco()
+        self.__tel = ''
+        self.__curso = 1
+        self.__banco = Banco() # aqui será criado o objeto que representa o acesso ao Banco de Dados, nós iremos utilizar ela para gravar, excluir, alterar e buscar os dados já gravados no banco
+        # propriedades públicas
 
-        def set_id(self, id): 
-            if id > 0:
-                self.__id = id
-        
-        def set_name(self, name):
-            if len(name)>0:
-                self.__name = name
+    # definir os métodos para a nossa classe para colocar os valores nas propriedades
+    def set_id(self, pId): # setar o valor é autoincremento
+        if pId > 0: # validação dos valores para não serem negativos ou zerados, e serem corretamente associados à propriedade
+            self.__id = pId
+    def set_nome(self,tnome):
+        if len(tnome) > 0:
+            self.__nome = tnome
 
-        def set_tel(self, tel):
-            if len(str(tel.numero)) == 9 and isinstance(tel.ddd,int):
-                self.__tel = "%d%d"%(Tel.ddd,Tel.numero)
+    def set_email(self,temail):
+        self.__email = temail
 
-        def set_data(self, dia, mes, ano):
-            if isinstance(dia, int) and dia in range(0,31):
-                if isinstance(mes, int) and mes in range(1,12):
-                    if isinstance(ano, int) and ano >= 0:
-                        self.__dn.set_dataNascimento(dia, mes, ano)
+    def set_tel(self,telefone):
+        self.__tel = telefone
 
-        def set_email(self, email):
-            if len(email) <= 50 and '@' in email:
-                self.__email = email
+    def set_curso(self,selOpcao):
+        self.__curso = selOpcao
 
-        def set_tel (self, ddd, numero):
-            if len(str(ddd))==2 and len(str(numero))==9:
-                self.__tel.set_Telefone(ddd, numero)
-        
-        def set_endereco(self, endereco):
-            if len(endereco)>0:
-                self.__endereco = endereco
-        
-        def set_curso(self, curso):
-            if isinstance(curso, int) and curso in range(0,3):
-                self.__curso = curso
-        
-        def write(self): # vai pegar os dados do objeto e gravar na tabela do banco
-            sql = ''' INSERT INTO alunos (nome,telefone,aniversario,endereco,curso,notificacoes)
-                    values ("#nome", "#telefone", #aniversario, #endereco, #curso, #notificacoes)
-                '''
-            sql = sql.replace('#nome',self.__name)
-            sql = sql.replace('#telefone', self.__tel)
-            sql = sql.replace('#aniversario', self.__dn)
-            sql = sql.replace('#endereco', self.__endereco)
-            sql = sql.replace('#curso', self.__curso)
-            sql = sql.replace('#notificacoes', self.__sendInfo)
-            return self.__banco.runCRUD(sql)
+    # métodos para obter os valores das propriedades
+    def get_id(self):
+        return self.__id
+
+    def get_nome(self):
+        return self.__nome
+
+    def get_email(self):
+        return self.__email
+    
+    def get_tel(self):
+        return self.__tel
+    
+    def get_curso(self):
+        return self.__curso
+
+    # devolver todas as espécies cadastradas no banco de dados na tabela Especies
+    def obterAluno(self):
+        sql = '''
+              SELECT aluno_id, aluno_nome, aluno_email, aluno_tel, aluno_curso
+              FROM Aluno
+              ORDER by aluno_nome
+              '''
+        return self.__banco.executarSelect(sql)
+
+    def gravar(self): # vai pegar os dados do objeto e gravar na tabela do banco
+        sql = ''' INSERT INTO Aluno (aluno_nome,aluno_email,aluno_tel,aluno_curso)
+                 values ("#nome", "#email", "#tel", "#curso")
+              '''
+        sql = sql.replace('#nome',self.__nome)
+        sql = sql.replace('#email', self.__email)
+        sql = sql.replace('#tel', self.__tel)
+        sql = sql.replace('#curso', self.__curso)
+        return self.__banco.executarInsertUpdateDelete(sql)
+
+    # devolver uma espécia só cdastrada no banco de dados na tabela Especies
+    def obterAluno(self, pId=0):
+        if pId != 0:
+            self.__id = pId
+        sql = ''' SELECT aluno_id, aluno_nome, aluno_email, aluno_tel, aluno_curso
+                  FROM Aluno
+                  where aluno_id = #id         '''
+        sql = sql.replace('#id', str(self.__id))
+        return self.__banco.executarSelect(sql)
+
+    def excluir(self):
+        sql = 'delete from Aluno where aluno_id = #id'
+        sql = sql.replace('#id', str(self.__id))
+        return self.__banco.executarInsertUpdateDelete(sql)
+
+    def alterar(self):
+        sql = 'update Aluno set aluno_nome = "#nome", aluno_email = "#email", aluno_tel = "#tel", aluno_curso =  "#curso" where aluno_id = #id'
+        sql = sql.replace('#nome',self.__nome)
+        sql = sql.replace('#email',self.__email)
+        sql = sql.replace('#tel',self.__tel)
+        sql = sql.replace('#curso',self.__curso)
+        sql = sql.replace('#id',str(self.__id))
+        return self.__banco.executarInsertUpdateDelete(sql)
