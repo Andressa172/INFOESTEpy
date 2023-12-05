@@ -50,7 +50,7 @@ class Aluno(): # está é o nome da classe de Espécies
         return self.__curso
 
     # devolver todas as espécies cadastradas no banco de dados na tabela Especies
-    def obterAluno(self):
+    def obterAlunos(self):
         sql = '''
               SELECT aluno_id, aluno_nome, aluno_email, aluno_tel, aluno_curso
               FROM Aluno
@@ -68,7 +68,6 @@ class Aluno(): # está é o nome da classe de Espécies
         sql = sql.replace('#curso', self.__curso)
         return self.__banco.executarInsertUpdateDelete(sql)
 
-    # devolver uma espécia só cdastrada no banco de dados na tabela Especies
     def obterAluno(self, pId=0):
         if pId != 0:
             self.__id = pId

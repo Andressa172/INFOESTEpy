@@ -85,7 +85,8 @@ class PaginaForm():
 
         str += self.montaTabela()
         return str
-
+    
+    @cherrypy.expose()
     def montaTabela(self):
         html = '''  
                     <section class="section-table">
@@ -103,7 +104,7 @@ class PaginaForm():
 
         # buscar os dados do banco de dados
         objAluno = Aluno()  # criamos um objeto do tipo Aluno
-        dados = objAluno.obterAluno()  # será criada uma lista com o resultado o SQL
+        dados = objAluno.obterAlunos()  # será criada uma lista com o resultado o SQL
 
         for linha in dados:
             html += ''' <tr>
