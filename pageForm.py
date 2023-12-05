@@ -1,12 +1,12 @@
 import cherrypy
 from classes.aluno import *
 
-class PaginaForm():
 
+class PaginaForm():
     header = open("html/headerForm.html", encoding="utf-8").read()
 
     @cherrypy.expose()
-    def index(self, txtId=None, tnome=None, temail=None, telefone=None, selOpcao=None, bgravar=None):
+    def index(self):
         return self.montaFormulario()
 
     def montaFormulario(self, pId=0, tnome='', temail='', telefone='', selOpcao=1):
@@ -25,33 +25,33 @@ class PaginaForm():
                                     <div class="content-descr-card__enrollment">
                                         <p class="card-content__enrollment">
 
-                                            <form name="Cadastro" action="" method="post"><br /><br />
-                                                <input type="hidden" id="txtId" name="txtId" value="{}"/>
+                                            <form name="Cadastro" action="gravarAluno" method="post"><br /><br />
+                                                <input type="hidden" id="txtId" name="txtId" value="%d"/>
                                                 <ul class="list-program">
                                                     <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                                                         <a class="program-link   font-size__enrollment"><label class="font-size__enrollment"
                                                             for="tnome">Nome:</label>
-                                                        <input type="text" id="tnome" name="tnome" size="30rem" maxlength="55"
-                                                            placeholder="Digite seu nome" required="required" value="{}" /></a>
+                                                        <input type="text" id="tnome" name="tnome" size="30" maxlength="55"
+                                                            placeholder="Digite seu nome" required="required" value="%s" /></a>
                                                     </li>
 
                                                     <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                                                         <a class="program-link   font-size__enrollment"><label for="temail">E-mail:</label>
-                                                        <input type="email" id="temail" name="temail" size="30rem" maxlength="55"
-                                                            placeholder="Digite seu E-mail" required="required" value="{}"/></a>
+                                                        <input type="email" id="temail" name="temail" size="30" maxlength="55"
+                                                            placeholder="Digite seu E-mail" required="required" value="%s"/></a>
                                                     </li>
 
                                                     <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                                                         <a class="program-link   font-size__enrollment"><label for="telefone">Telefone:</label>
-                                                        <input type="tel" id="telefone" title="99111-1111"
-                                                            placeholder="Digite seu telefone" value="{}"></a>
+                                                        <input type="tel" id="telefone" name="telefone" size="30" maxlength="30" title="99111-1111"
+                                                            placeholder="Digite seu telefone" value="%s"></a>
 
                                                     </li>
 
                                                     <li class="program-item inscr "><img src="../imgs/seta.png" alt="ícone seta" class="seta-list">
                                                         <a class="program-link   font-size__enrollment"><label for="tnome">Curso:</label>
                                                         </a>
-                                                        <select name="selOpcao" class="checkboxx">
+                                                        <select name="selOpcao" class="checkboxx" value="%d">
                                                             <option value="1" selected="selected"> Sistemas de Informação </option>
                                                             <option value="2"> Ciência da Computação </option>
                                                             <option value="3"> Engenharia de Software </option>
@@ -59,9 +59,6 @@ class PaginaForm():
                                                             <option value="5"> Outros </option>
                                                         </select>
                                                     </li><br>
-
-
-                                                    
 
                                                     <br />
 
@@ -84,7 +81,7 @@ class PaginaForm():
                 <br /><br />
             </head>
         </section>
-        '''.format(pId, tnome, temail, telefone, selOpcao)
+        ''' % (pId, tnome, temail, telefone, selOpcao)
 
         str += self.montaTabela()
         return str
@@ -103,11 +100,11 @@ class PaginaForm():
                             </tr> 
                     </section>
                 '''
-        
+
         # buscar os dados do banco de dados
-        objAluno = Aluno() # criamos um objeto do tipo Aluno
-        dados = objAluno.obterAluno() # será criada uma lista com o resultado o SQL
-        
+        objAluno = Aluno()  # criamos um objeto do tipo Aluno
+        dados = objAluno.obterAluno()  # será criada uma lista com o resultado o SQL
+
         for linha in dados:
             html += ''' <tr>
                            <td> %s </td>
@@ -119,12 +116,13 @@ class PaginaForm():
                               <a href="excluirAluno?idAluno=%s">[Excluir]</a>
                               <a href="alterarAluno?idAluno=%s">[Alterar]</a>
                            </td>
-                        </tr> ''' % (linha['aluno_id'], linha['aluno_nome'],linha['aluno_email'],linha['aluno_tel'],linha['aluno_curso'],linha['aluno_id'],linha['aluno_id'])
-        html +=''' </table> <br> <br>'''
+                        </tr> ''' % (linha['aluno_id'], linha['aluno_nome'], linha['aluno_email'], linha['aluno_tel'], linha['aluno_curso'], linha['aluno_id'], linha['aluno_id'])
+        html += ''' </table> <br> <br>'''
         return html
-    
+
+    # vai ser chamado quando clicar no botão
     @cherrypy.expose()
-    def gravarAluno(self, txtId, tnome, temail, telefone, selOpcao, bgravar): # vai ser chamado quando clicar no botão
+    def gravarAluno(self, txtId, tnome, temail, telefone, selOpcao, bgravar):
         if len(tnome) > 0:
             # fazer os procedimentos para gravar
             objAluno = Aluno()
@@ -134,9 +132,9 @@ class PaginaForm():
             objAluno.set_curso(selOpcao)
             # se o txtId = 0, representa que estamos inserindo uma nova espécie
             retorno = 0
-            if int(txtId) == 0: # nova espécie
+            if int(txtId) == 0:  # nova espécie
                 retorno = objAluno.gravar()
-            else: # vai gravar uma alteração no banco de dados
+            else:  # vai gravar uma alteração no banco de dados
                 objAluno.set_id(int(txtId))
                 retorno = objAluno.alterar()
             if retorno > 0:
@@ -146,23 +144,24 @@ class PaginaForm():
                            window.location.href = "/rotaAluno"
                         </script>
                        ''' % (tnome)
-            else: # if retorno > 0:  - Quer dizer que deu erro na hora de gravar
+            else:  # if retorno > 0:  - Quer dizer que deu erro na hora de gravar
                 return '''
                         <h2> Erro ao gravar o aluno %s</h2>
                         <a href="/rotaAluno">voltar</a>
                         ''' % (tnome)
-        else: # len(txtDescr) > 0:
+        else:  # len(txtDescr) > 0:
             return '''
                    <h2> O nome do aluno deve ser informado</h2>
                    <a href="/rotaAluno">voltar</a>
                '''
-    
+
     @cherrypy.expose()
-    def excluirAluno(self,idAluno):
+    def excluirAluno(self, idAluno):
         objAluno = Aluno()
         objAluno.set_id(int(idAluno))
-        if objAluno.excluir() > 0: # informa se conseguiu excluir ou não
-            raise cherrypy.HTTPRedirect('/rotaAluno') # para atualizar a página após a exclusão (tipo reload)
+        if objAluno.excluir() > 0:  # informa se conseguiu excluir ou não
+            # para atualizar a página após a exclusão (tipo reload)
+            raise cherrypy.HTTPRedirect('/rotaAluno')
         else:
             return '''
             <h2>Não foi possível excluir o aluno!!</h2>
@@ -170,7 +169,7 @@ class PaginaForm():
             '''
 
     @cherrypy.expose()
-    def alterarAluno(self,idAluno):
+    def alterarAluno(self, idAluno):
         objAluno = Aluno()
         # buscar no banco a espécie que foi informada no parâmetro
         dadosAlunoSelec = objAluno.obterAluno(idAluno)
@@ -181,4 +180,3 @@ class PaginaForm():
                                     dadosAlunoSelec[0]['aluno_tel'],
                                     dadosAlunoSelec[0]['aluno_curso']
                                     )
-                                    

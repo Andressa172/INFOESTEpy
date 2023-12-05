@@ -60,7 +60,7 @@ class Aluno(): # está é o nome da classe de Espécies
 
     def gravar(self): # vai pegar os dados do objeto e gravar na tabela do banco
         sql = ''' INSERT INTO Aluno (aluno_nome,aluno_email,aluno_tel,aluno_curso)
-                 values ("#nome", "#email", "#tel", "#curso")
+                 values ("#nome", "#email", "#tel", #curso)
               '''
         sql = sql.replace('#nome',self.__nome)
         sql = sql.replace('#email', self.__email)
