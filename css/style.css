@@ -22,6 +22,14 @@
   grid-template-columns: 1fr;
 }
 
+.hero-form {
+  background-color: #001005;
+
+  display: grid;
+  grid-template-rows: 0.05fr 1fr 1fr;
+  grid-template-columns: 1fr;
+}
+
 .hero-header{
   display: grid;
   grid-template-rows: 1fr;
@@ -376,21 +384,29 @@
 
 /*Inscrição*/
 .programacao-box-cards.inscricao {
-  background-color: #288542;
+  background-color: #28854244;
+  grid-row: 2;
+}
+
+.cards-container-inscricao {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .font-size__enrollment {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: white;
   line-height: 1.2rem;
 }
 
 .card__enrollment {
-  height: 100%;
   width: 80rem;
   /* width: 35rem; */
-  padding: 2rem;
+  padding: 1.5rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   justify-content: center;
@@ -445,11 +461,14 @@
 input {
   background-color: rgba(0, 16, 5, 0.425);
   border-radius: 1rem;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
+  color: #fff;
+  font-size: 1.8rem;
 }
 
 input::placeholder {
   color: #fff;
+  font-size: 1.8rem;
 }
 
 .program-item.inscr.center {
@@ -459,6 +478,53 @@ input::placeholder {
   align-items: center;
   justify-content: center;
 }
+
+.section-table{
+  height: 100%;
+  grid-row: 3;
+  padding: 2rem;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 6rem 4rem;
+}
+
+.tabela{
+
+  border-collapse: collapse;
+  width: 100%;
+
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.5rem;
+  color: white;
+  
+}
+
+.tabela th, .tabela td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tabela th {
+  background-color: #001005;
+}
+
+.tabela tr:nth-child(even) {
+  background-color: #003710;
+}
+
+.tabela a {
+  text-decoration: none;
+  margin-right: 5px;
+  color: #288542;
+}
+
+.tabela a:hover {
+  text-decoration: underline;
+}
+
 
 /* Seção Contato */
 
