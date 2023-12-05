@@ -54,7 +54,7 @@ class Aluno(): # está é o nome da classe de Espécies
         sql = '''
               SELECT aluno_id, aluno_nome, aluno_email, aluno_tel, aluno_curso
               FROM Aluno
-              ORDER by aluno_nome
+              ORDER by aluno_id
               '''
         return self.__banco.executarSelect(sql)
 
