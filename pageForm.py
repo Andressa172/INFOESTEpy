@@ -1,6 +1,6 @@
 import cherrypy
 from classes.aluno import *
-
+import re
 
 class PaginaForm():
     header = open("html/headerForm.html", encoding="utf-8").read()
@@ -125,6 +125,23 @@ class PaginaForm():
     @cherrypy.expose()
     def gravarAluno(self, txtId, tnome, temail, telefone, selOpcao, bgravar):
         if len(tnome) > 0:
+            #valida email
+            if not re.match(r"[^@]+@[^@]+\.[^@]+", temail):
+                return '''
+                                <script>
+                                    alert("O formato do e-mail é inválido");
+                                    window.location.href = "/rotaAluno";
+                                </script>
+                            '''
+
+                #valida tel
+            if not re.match(r"\d{10,11}", telefone):
+                return '''
+                                <script>
+                                    alert("O formato do telefone é inválido. Deve conter 10 ou 11 dígitos");
+                                    window.location.href = "/rotaAluno";
+                                </script>
+                            '''
             # fazer os procedimentos para gravar
             objAluno = Aluno()
             objAluno.set_nome(tnome)
