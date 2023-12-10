@@ -1,24 +1,18 @@
 from classes.banco import Banco
 
-class Aluno(): # está é o nome da classe de Espécies
-    '''
-        Documentação da classe
-        - aqui nó vamos descrever os campos (propriedades) e funções (métodos) para definirmos de acordo com a teoria de Programação Orientada a Objetos
-    '''
-    # Construtor
+class Aluno(): 
+    
     def __init__(self):
-        # propriedades privadas
         self.__id = 0
         self.__nome = ''
         self.__email = ''
         self.__tel = ''
         self.__curso = 1
-        self.__banco = Banco() # aqui será criado o objeto que representa o acesso ao Banco de Dados, nós iremos utilizar ela para gravar, excluir, alterar e buscar os dados já gravados no banco
-        # propriedades públicas
+        self.__banco = Banco() 
 
-    # definir os métodos para a nossa classe para colocar os valores nas propriedades
-    def set_id(self, pId): # setar o valor é autoincremento
-        if pId > 0: # validação dos valores para não serem negativos ou zerados, e serem corretamente associados à propriedade
+    
+    def set_id(self, pId): 
+        if pId > 0: 
             self.__id = pId
     def set_nome(self,tnome):
         if len(tnome) > 0:
@@ -33,7 +27,7 @@ class Aluno(): # está é o nome da classe de Espécies
     def set_curso(self,selOpcao):
         self.__curso = selOpcao
 
-    # métodos para obter os valores das propriedades
+    
     def get_id(self):
         return self.__id
 
@@ -49,7 +43,7 @@ class Aluno(): # está é o nome da classe de Espécies
     def get_curso(self):
         return self.__curso
 
-    # devolver todas as espécies cadastradas no banco de dados na tabela Especies
+    
     def obterAlunos(self):
         sql = '''
               SELECT aluno_id, aluno_nome, aluno_email, aluno_tel, aluno_curso
@@ -89,4 +83,8 @@ class Aluno(): # está é o nome da classe de Espécies
         sql = sql.replace('#tel',self.__tel)
         sql = sql.replace('#curso',self.__curso)
         sql = sql.replace('#id',str(self.__id))
+        return self.__banco.executarInsertUpdateDelete(sql)
+    
+    def clean(self):
+        sql = 'delete from sqlite_sequence'
         return self.__banco.executarInsertUpdateDelete(sql)

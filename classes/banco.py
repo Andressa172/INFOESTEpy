@@ -1,15 +1,14 @@
 import sqlite3
 
-#Executar todas as rotinas necessárias para abrir, fechar conexão emitir instruções SQL (genéricas) para o BD
 class Banco():
 
-    def __init__(self):#construtor
+    def __init__(self):
         self.__conexao = None
         self.__cursor = None
 
     def __abrirConexao(self):
         self.__conexao = sqlite3.connect("bd\\Aluno.db")
-        self.__conexao.row_factory = sqlite3.Row #isso serve para que você possa acessar os dados pelos nomes dos atributos da tabela e não somente pela posição que eles se encontram
+        self.__conexao.row_factory = sqlite3.Row 
         self.__cursor = self.__conexao.cursor()
 
     def __fecharConexao(self):
@@ -17,13 +16,12 @@ class Banco():
         self.__conexao.close()
 
     def executarInsertUpdateDelete(self, sql):
-        # Quando não recebeu o comando de SQL para ser executado
-        linhasAfetadas = -10 #variável de controle de erro...
+        linhasAfetadas = -10 
         if len(sql) > 0:
             self.__abrirConexao()
-            self.__cursor.execute(sql) #executar no banco
-            linhasAfetadas = self.__cursor.rowcount #número de linhas afetadas pelo comando SQL
-            self.__conexao.commit()#efetuar o sql
+            self.__cursor.execute(sql) 
+            linhasAfetadas = self.__cursor.rowcount 
+            self.__conexao.commit()
             self.__fecharConexao()
         return linhasAfetadas
 
@@ -33,7 +31,7 @@ class Banco():
             self.__abrirConexao()
 
             self.__cursor.execute(sql)
-            dados = self.__cursor.fetchall() #colocar os dados que vieram do BD no dados (retorna o resultado do select) - Lista
+            dados = self.__cursor.fetchall() 
 
             self.__fecharConexao()
         return dados

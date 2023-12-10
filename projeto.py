@@ -5,7 +5,6 @@ from pageForm import *
 
 local_dir = os.path.dirname(__file__)
 
-#run
 index()
 
 server_config={
@@ -14,7 +13,6 @@ server_config={
 }
 cherrypy.config.update(server_config)
 
-#Para que o cherrypy possa encontrar os arquivos dentro do diretório da aplicação
 local_config = {
     "/": {
         "tools.staticdir.on": True,
@@ -27,14 +25,13 @@ local_config = {
 
 
 
-#objetos utilizados para rota de navegação
-root = index() #rota principal
+
+root = index()
 root.sobre = PaginaAbout()
 root.ciclodecursos = PaginaCursos()
 root.fippetec = PaginaEtec()
 root.festalinux = PaginaLinux()
 root.maratonadeprogramacao = PaginaMaratona()
 root.rotaAluno = PaginaForm()
-
 
 cherrypy.quickstart(root,config=local_config)
